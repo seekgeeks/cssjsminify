@@ -1,13 +1,9 @@
 <?php
 
-namespace minify;
+require 'vendor/autoload.php';
 
-$minify = new minify;
+use CssJsminify\Minify;
 
-function css(){
-    
+$cssjs  =   new Minify();
 
-    $minify->css();
-}
-
-css();
+echo $cssjs->css();
