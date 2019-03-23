@@ -34,11 +34,11 @@ class Minify{
             if( !file_exists( $minifiedPath ) || $last_modified_target < $last_modified_source )
             {
 
-                echo $sourcePath;
-                echo $minifiedPath;
+                // echo $sourcePath;
+                // echo $minifiedPath;
 
-             //   $this->minify_js($sourcePath,$minifiedPath);
-            }
+                $this->minify_js($sourcePath,$minifiedPath);
+            } 
         }
     }
 

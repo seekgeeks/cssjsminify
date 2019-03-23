@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "matthiasmullie/minify" : ">=1.3.61"
+    },
     "autoload": {
         "psr-4": {
             "SeekGeeks\\Cssjsminify\\": "src/"
