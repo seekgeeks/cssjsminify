@@ -1,7 +1,7 @@
 <?php
 namespace CssJsminify;
 
-require '../vendor/autoload.php';
+@require '../vendor/autoload.php';
 
 class Minify{
     /**

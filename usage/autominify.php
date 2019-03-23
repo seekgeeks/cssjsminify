@@ -4,7 +4,6 @@
  * This file is just for test purpose, not to be used in production
  * 
  *  */
-require '../vendor/autoload.php';
 
 include '../src/Cssjsminify/Minify.php';
 
