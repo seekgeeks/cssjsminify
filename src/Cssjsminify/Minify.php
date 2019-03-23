@@ -74,7 +74,9 @@ class Minify{
 
     private function minify_js($src='',$minified='')
     {
-        
+        $minifier   = new \MatthiasMullie\Minify\JS($src);
+        $minifier->minify($minified);
+        $minifier->minify();
     }
 
 }
