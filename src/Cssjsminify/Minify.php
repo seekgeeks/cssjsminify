@@ -3,38 +3,6 @@
 namespace CssJsminify;
 
 class Minify{
-
-
-    /**
-     * 
-     * Path to all asset file where js and css files resides
-     * change this value to your path
-     * 
-     *  */
-    private const ASSET_PATH = '/static/';
-
-    /**
-     * 
-     * Sub directory where minified javascript files will be stored
-     * 
-     * */
-    private const JS_MIN_PATH  =   '/min/js/';
-
-    /**
-     * 
-     * Sub directory where minified css files will be stored
-     * 
-     * */
-    private const CSS_MIN_PATH  =   '/min/css/';
-
-
-    /**
-     * 
-     * path to your project
-     * 
-     * */
-    private const FCPATH  =   '/var/www/html/';
-
     /**
      * init_js will initialize paths and parameters for javascript file
      * will do logics like checking file modified time and path existance
@@ -44,30 +12,32 @@ class Minify{
      * 
      * 
      *  */
-    public function init_js()
+    public function init_js($asset, $target_dir, $fcpath)
     {
-        $asset     =   $this->ASSET_PATH;
-        $target_dir =   
 
-        $files          =   array_diff(scandir($target_dir), array('.', '..'));
-        $minified_path  =   $this->JS_MIN_PATH;
+        $files          =   array_diff(scandir($fcpath.$asset.$target_dir), array('.', '..'));
+        $minified_dir   =   $fcpath.$asset.'min/'.$target_dir;
         
-        foreach($files as $file)
+        foreach ($files as $file)
         {
-            $sourcePath     =   $this->FCPATH.$target_dir.$file;
-            $minifiedPath   =   $this->FCPATH.$asset.$minified_path.$file;
+            $sourcePath     =   $fcpath.$asset.$target_dir.$file;
+            $minifiedPath   =   $minified_dir.$file;
 
-            $last_modified_source  =   filemtime($sourcePath);
-            $last_modified_target  =   filemtime($minifiedPath);
-            
-            if (!file_exists( $asset.$minified_path.'/min/js/') )
+            if (!file_exists( $minified_dir) )
             {
-                mkdir( $asset.$minified_path.'/min/js/', 0777, true );
+                mkdir( $minified_dir, 0777, true );
             }
 
+            $last_modified_source  =   filemtime($sourcePath);
+            $last_modified_target  =   (file_exists($minifiedPath) ?  filemtime($minifiedPath) : '0');
+            
             if( !file_exists( $minifiedPath ) || $last_modified_target < $last_modified_source )
             {
-                $this->minify_js($sourcePath,$minifiedPath);
+
+                echo $sourcePath;
+                echo $minifiedPath;
+
+             //   $this->minify_js($sourcePath,$minifiedPath);
             }
         }
     }
