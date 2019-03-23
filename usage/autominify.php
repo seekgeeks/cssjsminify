@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * This file is just for test purpose, not to be used in production
+ * Please use this file to execute to minify your content
  * 
  *  */
 
