@@ -60,9 +60,6 @@ class Minify{
             
             if (!file_exists( $minifiedPath ) || $last_modified_target < $last_modified_source)
             {
-
-                // echo $sourcePath;
-                // echo $minifiedPath;
                 $this->minify($sourcePath,$minifiedPath);
             } 
         }
@@ -79,6 +76,5 @@ class Minify{
             $minifier   =   new \MatthiasMullie\Minify\JS($src);
         }
         $minifier->minify($minified);
-        $minifier->minify();
     }
 }
