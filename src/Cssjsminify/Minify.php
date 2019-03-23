@@ -1,6 +1,7 @@
 <?php
-
 namespace CssJsminify;
+
+@require '../vendor/autoload.php';
 
 class Minify{
     /**
@@ -16,14 +17,14 @@ class Minify{
      *
      * @var string
      */
-    public $target_dir = '';
+    public $source_css_dir = '';
 
     /**
      * DIR to store minified files
      *
      * @var string
      */
-    public $minify_dir = '';
+    public $source_js_dir = '';
 
     /**
      * Local DIR path
@@ -32,22 +33,82 @@ class Minify{
      */
     public $fcpath = '';
 
+    /**
+     * 
+     *  */
+
 
     /**
+     * 
      * Convert Css and js files from target_dir to minify_dir
      *
      */
+
+    
     public function init_minify()
+    
+    {
+        if( !$this->init_minify_css() OR !$this->init_minify_js() )
+        {
+            return false;
+        }
+        
+
+        return true;
+    }
+
+    private function get_minify_dir( $target_dir )
+    {
+        $pieces     = array_filter(explode('/', $target_dir));
+        $min_dir    = implode('/', array_slice($pieces, 0, -1));
+        $min_dir    = $min_dir.'/min/'.end($pieces).'/';
+        return $min_dir;
+    }
+
+    private function init_minify_css()
     {   
 
-        $target_dir     =   $this->target_dir;
+        $source_dir     =   $this->source_css_dir;
         $fcpath         =   $this->fcpath;
-        $minify_dir     =   $this->minify_dir;
-        $files          =   array_diff(scandir($fcpath.$target_dir), array('.', '..'));
+        $minify_dir     =   $this->get_minify_dir($source_dir);
+        $files          =   array_diff(scandir($fcpath.$source_dir), array('.', '..'));
         
-        foreach ($files as $file)
+        foreach ( $files as $file )
         {
-            $sourcePath     =   $fcpath.$target_dir.$file;
+            $sourcePath     =   $fcpath.$source_dir.$file;
+            $minifiedPath   =   $fcpath.$minify_dir.$file;
+
+            if (!file_exists( $minify_dir) )
+            {
+                mkdir( $minify_dir, 0777, true );
+            }
+
+            $last_modified_source  =  filemtime( $sourcePath );
+            $last_modified_target  =  ( file_exists($minifiedPath) ? filemtime($minifiedPath) : '0' );
+            
+            if (!file_exists( $minifiedPath ) || $last_modified_target < $last_modified_source)
+            {   
+                $this->minify($sourcePath,$minifiedPath);
+            } 
+        }
+
+        return true;
+    }
+
+    private function init_minify_js()
+    {   
+
+        $source_dir     =   $this->source_js_dir;
+
+        $fcpath         =   $this->fcpath;
+        
+        $minify_dir     =   $this->get_minify_dir($source_dir);
+        
+        $files          =   array_diff(scandir($fcpath.$source_dir), array('.', '..'));
+        
+        foreach ( $files as $file )
+        {
+            $sourcePath     =   $fcpath.$source_dir.$file;
             $minifiedPath   =   $minify_dir.$file;
 
             if (!file_exists( $minify_dir) )
@@ -55,19 +116,32 @@ class Minify{
                 mkdir( $minify_dir, 0777, true );
             }
 
-            $last_modified_source  =  filemtime($sourcePath);
-            $last_modified_target  =  (file_exists($minifiedPath) ? filemtime($minifiedPath) : '0');
+            $last_modified_source  =  filemtime( $sourcePath );
+            $last_modified_target  =  ( file_exists($minifiedPath) ? filemtime($minifiedPath) : '0' );
             
             if (!file_exists( $minifiedPath ) || $last_modified_target < $last_modified_source)
             {
-
-                // echo $sourcePath;
-                // echo $minifiedPath;
                 $this->minify($sourcePath,$minifiedPath);
             } 
         }
+
+        return true;
     }
 
+
+    /**
+     * ## Core function 
+     * This function simply takes source and destination path
+     * Convert/minify file and write back
+     * 
+     * ### Parameters 
+     *  - @param src string : path or source file
+     * 
+     *  - @param minified string : path for the destination file.
+     * 
+     *  - @return void
+     * 
+     *  */
     private function minify( $src='',$minified='' )
     {   
         $file_ext   =   pathinfo($src,PATHINFO_EXTENSION);
@@ -78,7 +152,13 @@ class Minify{
         {
             $minifier   =   new \MatthiasMullie\Minify\JS($src);
         }
-        $minifier->minify($minified);
-        $minifier->minify();
+        
+        if( $minifier->minify($minified) )
+        {
+            return true;
+        }
+
+        return false;
+        
     }
 }
