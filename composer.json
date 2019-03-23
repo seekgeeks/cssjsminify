@@ -1,0 +1,15 @@
+{
+    "name": "seekgeeks/cssjsminify",
+    "description": "CSS JS minify tool will help in minification of your entire js/css file and put in directly from where you can use it in production build. with simple command you can minify all static c content like stylesheets and javascripts to production ready code",
+    "type": "library",
+    "require": {
+        "matthiasmullie/minify": "1.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dheeraj jha",
+            "email": "dheeraj@thedijje.com"
+        }
+    ]
+}
