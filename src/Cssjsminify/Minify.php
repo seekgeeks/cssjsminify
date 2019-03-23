@@ -52,7 +52,7 @@ class Minify{
     {
         $pieces     = array_filter(explode('/', $target_dir));
         $min_dir    = implode('/', array_slice($pieces, 0, -1));
-        $min_dir    =   $min_dir.'/min/'.end($pieces).'/';
+        $min_dir    = $min_dir.'/min/'.end($pieces).'/';
         return $min_dir;
     }
 
@@ -86,7 +86,7 @@ class Minify{
         return true;
     }
 
-    public function init_minify_js()
+    private function init_minify_js()
     {   
 
         $source_dir     =   $this->target_js_dir;
