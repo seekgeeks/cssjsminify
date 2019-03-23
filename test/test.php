@@ -11,21 +11,21 @@ class Test extends Mini{
      * change this value to your path
      * 
      *  */
-    public $asset_path = 'static/';
+    public $asset_path      =   'YOUR_STATIC_DIR'; // eg  'static/'
 
     /**
      * 
      * Sub directory where minified javascript files will be stored
      * 
      * */
-    public $js_target_dir  =   'js/';
+    public $js_target_dir  =    'YOUR_TARGET_JS_DIR'; // eg  'js/'
 
     /**
      * 
      * Sub directory where minified css files will be stored
      * 
      * */
-    public $css_target  =   'css/';
+    public $css_target      =   'YOUR_TARGET_CSS_DIR'; // eg  'css/'
 
 
     /**
