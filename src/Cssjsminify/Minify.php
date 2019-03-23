@@ -17,14 +17,14 @@ class Minify{
      *
      * @var string
      */
-    public $target_css_dir = '';
+    public $source_css_dir = '';
 
     /**
      * DIR to store minified files
      *
      * @var string
      */
-    public $target_js_dir = '';
+    public $source_js_dir = '';
 
     /**
      * Local DIR path
@@ -32,6 +32,10 @@ class Minify{
      * @var string
      */
     public $fcpath = '';
+
+    /**
+     * 
+     *  */
 
 
     /**
@@ -44,8 +48,13 @@ class Minify{
     public function init_minify()
     
     {
-        $this->init_minify_css();
-        $this->init_minify_js();
+        if( !$this->init_minify_css() OR !$this->init_minify_js() )
+        {
+            return false;
+        }
+        
+
+        return true;
     }
 
     private function get_minify_dir( $target_dir )
@@ -59,7 +68,7 @@ class Minify{
     private function init_minify_css()
     {   
 
-        $source_dir     =   $this->target_css_dir;
+        $source_dir     =   $this->source_css_dir;
         $fcpath         =   $this->fcpath;
         $minify_dir     =   $this->get_minify_dir($source_dir);
         $files          =   array_diff(scandir($fcpath.$source_dir), array('.', '..'));
@@ -89,11 +98,11 @@ class Minify{
     private function init_minify_js()
     {   
 
-        $source_dir     =   $this->target_js_dir;
+        $source_dir     =   $this->source_js_dir;
 
         $fcpath         =   $this->fcpath;
         
-        $minify_dir     =   $this->minify_dir;
+        $minify_dir     =   $this->get_minify_dir($source_dir);
         
         $files          =   array_diff(scandir($fcpath.$source_dir), array('.', '..'));
         
