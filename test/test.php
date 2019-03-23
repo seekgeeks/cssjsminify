@@ -17,14 +17,15 @@ $mini   =    new Mini;
  * Source directory to be minified
  * 
  */
-$mini->source_dir    =   'static/css/';
+$mini->target_css_dir    =   'static/css/';
 
 /**
  * 
  * Target directory to be written
  * 
  *  */
-$mini->minify_dir    =   'static/min/css/';    
+$mini->target_js_dir    =   'static/js/';    
+
 
 $mini->fcpath        =   dirname(__FILE__).DIRECTORY_SEPARATOR;
 

@@ -1,7 +1,8 @@
 <?php
-
 namespace CssJsminify;
+
 require '../vendor/autoload.php';
+
 class Minify{
     /**
      * init_js will initialize paths and parameters for javascript file
@@ -16,14 +17,14 @@ class Minify{
      *
      * @var string
      */
-    public $source_dir = '';
+    public $target_css_dir = '';
 
     /**
      * DIR to store minified files
      *
      * @var string
      */
-    public $minify_dir = '';
+    public $target_js_dir = '';
 
     /**
      * Local DIR path
@@ -38,10 +39,57 @@ class Minify{
      * Convert Css and js files from target_dir to minify_dir
      *
      */
+
+    
     public function init_minify()
+    
+    {
+        $this->init_minify_css();
+        $this->init_minify_js();
+    }
+
+    private function get_minify_dir( $target_dir )
+    {
+        $pieces     = array_filter(explode('/', $target_dir));
+        $min_dir    = implode('/', array_slice($pieces, 0, -1));
+        $min_dir    =   $min_dir.'/min/'.end($pieces).'/';
+        return $min_dir;
+    }
+
+    private function init_minify_css()
     {   
 
-        $source_dir     =   $this->source_dir;
+        $source_dir     =   $this->target_css_dir;
+        $fcpath         =   $this->fcpath;
+        $minify_dir     =   $this->get_minify_dir($source_dir);
+        $files          =   array_diff(scandir($fcpath.$source_dir), array('.', '..'));
+        
+        foreach ( $files as $file )
+        {
+            $sourcePath     =   $fcpath.$source_dir.$file;
+            $minifiedPath   =   $fcpath.$minify_dir.$file;
+
+            if (!file_exists( $minify_dir) )
+            {
+                mkdir( $minify_dir, 0777, true );
+            }
+
+            $last_modified_source  =  filemtime( $sourcePath );
+            $last_modified_target  =  ( file_exists($minifiedPath) ? filemtime($minifiedPath) : '0' );
+            
+            if (!file_exists( $minifiedPath ) || $last_modified_target < $last_modified_source)
+            {   
+                $this->minify($sourcePath,$minifiedPath);
+            } 
+        }
+
+        return true;
+    }
+
+    public function init_minify_js()
+    {   
+
+        $source_dir     =   $this->target_js_dir;
 
         $fcpath         =   $this->fcpath;
         
@@ -70,6 +118,7 @@ class Minify{
 
         return true;
     }
+
 
     /**
      * ## Core function 
