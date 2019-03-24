@@ -35,15 +35,9 @@ class Minify{
 
     /**
      * 
-     *  */
-
-
-    /**
-     * 
      * Convert Css and js files from target_dir to minify_dir
      *
      */
-
     
     public function init_minify()
     
