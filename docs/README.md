@@ -8,6 +8,15 @@ CSS & JS minify is compact function abstracted on another awesome package *matth
 - PHP version : 7 (Recomended)
 - PHP cli
 
+## Installation
+- Install through composer using
+```
+composer require seekgeeks/cssjsminify
+```
+This will update the required dependencies automatically.
+
+- You can also download the .rar file and extract it to /third/party/directory.
+
 ## How it works?
 Using this library along with maintaining is super easy. You can just do following to minify your files
 
