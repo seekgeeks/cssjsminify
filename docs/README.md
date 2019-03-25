@@ -1,5 +1,6 @@
 # CSS & JS Minify
-[<img src="https://img.shields.io/packagist/dt/seekgeeks/cssjsminify.svg">](Downloads)
+[<img src="https://img.shields.io/packagist/dt/seekgeeks/cssjsminify.svg">]()
+[<img src="https://img.shields.io/packagist/v/seekgeeks/cssjsminify.svg">]()
 
 CSS & JS minify is compact function abstracted on another awesome package *matthiasmullie/minify*. This library provides a universal abstraction where you can use this function for both css and js file and we have added additional feature by which you can automate all stuff, remove duplication and stay updated.
 
