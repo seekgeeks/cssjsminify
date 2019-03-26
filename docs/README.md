@@ -4,24 +4,48 @@
 
 CSS & JS minify is compact function abstracted on another awesome package *matthiasmullie/minify*. This library provides a universal abstraction where you can use this function for both css and js file and we have added additional feature by which you can automate all stuff, remove duplication and stay updated.
 
-## Requirement
+## Requirement ##
 - PHP Package : matthiasmullie/minify, will be updated automatically.
 - PHP version : 7 (Recomended)
 - PHP cli
 
-## Installation
-- Install through composer using
-```
+## Installation ##
+
+You can use **Composer** or simply **Download the Release**
+
+### Composer
+
+The preferred method is via [composer](https://getcomposer.org). Follow the
+[installation instructions](https://getcomposer.org/doc/00-intro.md) if you do not already have
+composer installed.
+
+Once composer is installed, execute the following command in your project root to install this library:
+
+```sh
 composer require seekgeeks/cssjsminify
 ```
-This will update the required dependencies automatically.
 
-- You can also download the .rar file and extract it to /third/party/directory.
+Finally, be sure to include the autoloader:
 
-## How it works?
+```php
+require_once '/path/to/your-project/vendor/autoload.php';
+```
+
+### Download the Release
+
+If you abhor using composer, you can download the package in its entirety. Download the zip/rar file for a package including this library and its dependencies.
+
+Uncompress the zip file you download, and include the autoloader in your project:
+
+```php
+require_once '/path/to/seekgeeks/cssjsminify/vendor/autoload.php';
+```
+
+
+## How it works? ##
 Using this library along with maintaining is super easy. You can just do following to minify your files
 
-```
+```sh
 php path/to/file/autominify.php
 
 ```
@@ -37,7 +61,5 @@ asset/css/style.css
 Your destination file will be
 
 ```
-
 asset/css/min/style.css
-
 ```
